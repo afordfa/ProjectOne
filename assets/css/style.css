@@ -22,7 +22,7 @@ body{
 }
 
 
-.roundedMiniHeader {
+roundedMiniHeader {
 	width: 100%;
 	height: 50px;
 	background-color:#ff8900;
@@ -34,13 +34,18 @@ body{
   	color:white;
 }
 
-roundedMiniHeader {
+.miniHeaderLabel {
 	color: white;
 	margin-top: 1px;
 }
 
+
+
 #searchPannel {
 	background-color:#ff8900;
+	border-bottom-left-radius: 50% 10%;
+  	border-bottom-right-radius: 50% 10%;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .btn{
@@ -54,4 +59,8 @@ roundedMiniHeader {
 
 .startBtn{
 	text-align: right;
+}
+
+#mapRow{
+	text-align: center;
 }
