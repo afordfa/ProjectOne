@@ -46,8 +46,8 @@
 					</div>
 					
 					<div class="input-group">				
-						<span class="input-group-addon" id="cityInput">City:</span>
-						<input type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1">
+						<span class="input-group-addon">City:</span>
+						<input id="cityInput" type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1">
 												
 						<span class="input-group-addon" id="stateInput">State:</span>
 						<input type="text" class="form-control" placeholder="Tx" aria-describedby="basic-addon1">
@@ -58,7 +58,7 @@
 							<input id="endDateInput" type="text" class="form-control" placeholder="End Date" aria-describedby="basic-addon1">
 					</div>
 					<div class="startBtn">
-						<button type="button" class="btn btn-default">Search</button>
+						<button type="button" id='search' class="btn btn-default">Search</button>
 					</div>
 				</div>
 
@@ -108,8 +108,9 @@
     $("#startDateInput").datepicker();
     $("#endDateInput").datepicker();
   });
-
-
+</script>
+<script src='javascript/app.js'>
+</script>
 
 
 </script>
