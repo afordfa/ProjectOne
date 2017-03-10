@@ -76,6 +76,11 @@ roundedMiniHeader {
 	text-align: center;
 }
 
+#map {
+	width: 400px;
+	height: 400px;
+}
+
 #wheatherLabelRow {
 	margin-top: 10px;
 	margin-bottom: 5px;

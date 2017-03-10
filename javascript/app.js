@@ -1,27 +1,37 @@
+function initMap() {
+var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 10,
+  center: coordinates
+});
+
+var marker = new google.maps.Marker({
+  position: coordinates,
+  map: map
+});
+}
+      
 $(document).on('ready', function (){
     // Initialize variables for google API
-
     var city = "";
     var state = "";
     var latitude = "";
     var longitude = "";
     var zipCode = "";
     var forecastArray = [];
-    
     var queryZipURL = "";
-   
+	var map;
 	var startDate;
-
 	var endDate;
-
 	var jambaseQueryURL;
-
 	var event = {};
-
 	var artistName;
 	var venueName;
 	var venueAddress; 
 	var eventDate;
+	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
+	
+	$("body").append(script);
 
 	$("#startDateInput").datepicker();
 
@@ -35,9 +45,7 @@ $(document).on('ready', function (){
 	$("#endDateInput").change(function(){
 		endDate = moment($('#endDateInput').val()).format().slice(0,13);
 		console.log('end date: ' + endDate);
-	})
-	
- 	
+	})		
 	
 	//click handler for submit button.
 	$('#search').on('click', function(){
@@ -45,7 +53,6 @@ $(document).on('ready', function (){
 		state = $("#stateInput").val();
 		console.log(city);
 		console.log(state);
-
 
 	    // First ajax call to get latitude and longitude from google
 		$.ajax({
@@ -65,6 +72,7 @@ $(document).on('ready', function (){
 				method: "GET"
 			})
 			.done(function(response) {
+				console.log(response);
 				zipCode = response.results[0].address_components[7].long_name;
 				console.log("zip: " + zipCode);
 				
@@ -72,8 +80,6 @@ $(document).on('ready', function (){
 									'&radius=10&startDate='+startDate+
 									'%3A00%3A00&endDate='+endDate+
 									'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
-
-				// actualURL='http://api.jambase.com/events?zipCode=78701&radius=10&startDate=2017-03-07T20%3A00%3A00&endDate=2017-03-17T20%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9'
 
 				$.ajax({
 					url: jambaseQueryURL,
@@ -101,52 +107,34 @@ $(document).on('ready', function (){
 				})				
 			});
 		});
-
-		      //ajax call to get information from Weather Underground
-			$.ajax({
-	        	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
-	          	state + "/" + city + ".json",
-	        	method: "GET"
-	      	})
-
-
-	      	//when call is complete, sets variables for weather based on the city and state entered.
-	      	//uses 10-day forecast from weather underground.
-	      	//need to attribute weatherunderground in app.
-	      	.done(function(response) {
-	      		for (i = 0; i < 10; i++) {
-		      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
-		      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
-		      		var iconImg = response.forecast.simpleforecast.forecastday[i].icon_url;
-		      		var month = response.forecast.simpleforecast.forecastday[i].date.monthname;
-		      		var day = response.forecast.simpleforecast.forecastday[i].date.day;
-		      		var year = response.forecast.simpleforecast.forecastday[i].date.year;
-		      		forecastArray.push({
-		      			highTemp: highTemp,
-		      			lowTemp: lowTemp,
-		      			inconImg: iconImg,
-		      			month: month,
-		      			day: day,
-		      			year: year
-		      		})
-	      		}
-	      		console.log(forecastArray);
-			});
-	
-
-
-	//end of click handler for submit button
+	    //ajax call to get information from Weather Underground
+		$.ajax({
+        	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
+          	state + "/" + city + ".json",
+        	method: "GET"
+      	})
+      	//when call is complete, sets variables for weather based on the city and state entered.
+      	//uses 10-day forecast from weather underground.
+      	//need to attribute weatherunderground in app.
+      	.done(function(response) {
+      		console.log(response);
+      		for (i = 0; i < 10; i++) {
+	      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
+	      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
+	      		var iconImg = response.forecast.simpleforecast.forecastday[i].icon_url;
+	      		var month = response.forecast.simpleforecast.forecastday[i].date.monthname;
+	      		var day = response.forecast.simpleforecast.forecastday[i].date.day;
+	      		var year = response.forecast.simpleforecast.forecastday[i].date.year;
+	      		forecastArray.push({
+	      			highTemp: highTemp,
+	      			lowTemp: lowTemp,
+	      			iconImg: iconImg,
+	      			month: month,
+	      			day: day,
+	      			year: year
+	      		})
+      		}
+      		console.log(forecastArray);
+		});
 	})
-
-
-	// $('#search').on('click', function(){
-	// 	console.log(jambaseQueryURL);
-	//})
-	// $.ajax({
-	// 	url: jambaseQueryURL,
-	// 	method: 'GET'
-	// }).done(function (snap){
-		
-	// })
-
-})
+})	
