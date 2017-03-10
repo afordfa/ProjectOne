@@ -1,3 +1,17 @@
+function initMap() {
+var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 10,
+  center: coordinates
+});
+
+var marker = new google.maps.Marker({
+  position: coordinates,
+  map: map
+});
+}
+
+      
 $(document).on('ready', function (){
     // Initialize variables for google API
 
@@ -9,7 +23,9 @@ $(document).on('ready', function (){
     var forecastArray = [];
     
     var queryZipURL = "";
-   
+
+   var map;
+
 	var startDate;
 
 	var endDate;
@@ -23,7 +39,20 @@ $(document).on('ready', function (){
 	var venueAddress; 
 	var eventDate;
 
+	// var jambaseQueryURL = 'http://api.jambase.com/search?zip=' + cityZip +
+	// '&radius=25&startDate=' +startDate + 
+	// '&endDate=' + endDate + 
+	// '&user=jambase&apikey=tce5wmzuk9w333ns7nv4xsv9';
+
+
+
+	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
+	// script.type = 'text/javascript';
+	
+	$("body").append(script);
+
 	$("#startDateInput").datepicker();
+
 
 	$("#endDateInput").datepicker();
 
@@ -114,6 +143,7 @@ $(document).on('ready', function (){
 	      	//uses 10-day forecast from weather underground.
 	      	//need to attribute weatherunderground in app.
 	      	.done(function(response) {
+	      		console.log(response);
 	      		for (i = 0; i < 10; i++) {
 		      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
 		      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
@@ -124,7 +154,7 @@ $(document).on('ready', function (){
 		      		forecastArray.push({
 		      			highTemp: highTemp,
 		      			lowTemp: lowTemp,
-		      			inconImg: iconImg,
+		      			iconImg: iconImg,
 		      			month: month,
 		      			day: day,
 		      			year: year
@@ -134,9 +164,12 @@ $(document).on('ready', function (){
 			});
 	
 
-
+	      	// initMap();
 	//end of click handler for submit button
 	})
+
+
+
 
 
 	// $('#search').on('click', function(){
@@ -148,5 +181,5 @@ $(document).on('ready', function (){
 	// }).done(function (snap){
 		
 	// })
-
+	//initMap();
 })

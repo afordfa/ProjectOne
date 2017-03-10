@@ -76,6 +76,11 @@ roundedMiniHeader {
 	text-align: center;
 }
 
+#map {
+	width: 400px;
+	height: 400px;
+}
+
 #wheatherLabelRow {
 	margin-top: 10px;
 	margin-bottom: 5px;
@@ -95,4 +100,18 @@ roundedMiniHeader {
 
 #seeSaved {
 	margin: 5px;
+}
+
+#concertHeading{
+	background-color:#ff8900;
+}
+
+.panel-default{
+	border-color:#ff8900;
+}
+
+th {
+	text-align: center;
+	color: #ff8900
+	
 }
