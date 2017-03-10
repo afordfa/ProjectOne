@@ -18,6 +18,11 @@ $(document).on('ready', function (){
 
 	var event = {};
 
+	var artistName;
+	var venueName;
+	var venueAddress; 
+	var eventDate;
+
 	$("#startDateInput").datepicker();
 
 	$("#endDateInput").datepicker();
@@ -75,9 +80,26 @@ $(document).on('ready', function (){
 					method: "GET"
 				}) .done (function(snap){
 					console.log(snap);
-				})
+					artistName = snap.Events[0].Artists[0].Name;
+					venueName = snap.Events[0].Venue.Name;
+					venueAddress = snap.Events[0].Venue.Address;
+					eventDate = snap.Events[0].Date;
+					eventDate = eventDate.slice(0,10);
+
+					console.log(
+						'artist name: '+artistName,
+						'venue name: '+venueName,
+						'venue address: '+venueAddress,
+						'event date: '+eventDate
+					);
+
+					$('#concertTable').append(
+						'</tr><tr><td>'+artistName+'</td>'+
+						'<td>'+venueName+'</td>'+
+						'<td>'+eventDate+'</td></tr>'
+						);
+				})				
 			});
-			
 		});
 
 		      //ajax call to get information from Weather Underground
