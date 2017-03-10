@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OOblee Now what</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+</head>
+	<body class="text-center">
+		<div class="container">
+
+<!-- THIS IS THE ROW ONE /////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="row" id="row1">
+				<div class="col-xs-12">
+					<div id="header1">
+						<h1 id="logo"> <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+							OOblee
+						</h1>
+					</div>
+				</div>
+			</div>
+
+<!-- THIS IS THE ROW TWO /////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="row" id="row2">
+				<div class="col-xs-12 instructions">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
+				</div>
+			</div>
+<!-- THIS IS THE ROW THREE /////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="row" id="row3">
+				
+				<div class="col-xs-4" id="searchPannel">
+					<div class="roundedMiniHeader">
+						<h3 class= "miniHeaderLabel">Search for New Concerts</h3>
+					</div>
+					
+					<div class="input-group">				
+						<span class="input-group-addon">City:</span>
+						<input id="cityInput" type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1">
+												
+						<span class="input-group-addon">State:</span>
+						<input id="stateInput" type="text" class="form-control" placeholder="Tx" aria-describedby="basic-addon1">
+					</div>
+							
+					<div class="input-group">
+							<input id="startDateInput" type="text" class="form-control" placeholder="Start Date" aria-describedby="basic-addon1">
+							<input id="endDateInput" type="text" class="form-control" placeholder="End Date" aria-describedby="basic-addon1">
+					</div>
+					<div class="startBtn">
+						<button type="button" id='search' class="btn btn-default">Search</button>
+					</div>
+					
+		<!-- THIS IS A SUBROW FOR THE WEATHER SECCTION  -->
+					<div class="row" id="wheatherLabelRow"> 
+						<h3 class= "miniHeaderLabel">Local Weather</h3>
+					</div>
+
+					<div class="row" id="highAndPictureRow">
+						
+						<div class="col-xs-6" id="highTemp">
+							<p>High</p>
+							<h1 class="tempIndicator">17&deg;F
+							</h1>
+						</div>
+
+						<div class="col-xs-6" id="highTemp">
+							<img src="assets/chancerain.gif">
+						</div>
+					</div>
+					
+					<div class="row" id="lowAndDateRow">
+
+						<div class="col-xs-6" id="LowTemp">
+							<p>Low</p>
+							<h1 class="tempIndicator">1&deg;F
+							</h1>
+						</div>
+						
+						<div class="col-xs-6 tempIndicator" id="weatherDate">
+							<h1> 6/2/18 </h1>
+						</div>
+
+					</div>
+
+
+				</div> <!-- THIS IS THE END OF COLUMN FOR THE SEARCH PANNEL AND WEATHER-->
+
+
+				<div class="col-xs-8">
+					<div class="panel panel-default">
+						  <div class="panel-heading" id="concertHeading">
+							<h3 class="miniHeaderLabel">Concerts</h3>
+						  </div>
+						  <table class="table" id="concertTable">
+							<tr>
+								<th>Artisit</th>
+								<th>Venue</th>
+								<th>Date</th>
+								<th>Email</th>
+								<th>Save Info</th>
+							</tr>
+
+							 
+							</tr>
+						  </table>
+						  <div id="buttonBox">
+						  <button id='seeSaved'>See My Saved Concerts</button>
+				  		  </div>
+						
+				  		  <div class="row" id="mapRow">
+						  		<h3>Venue Map</h3>
+						  		<div id="map"></div>
+						
+						  </div>
+
+
+					</div>
+				</div> <!-- THIS IS THE END OF COLUMN FOR THE TABLE 3 -->
+			</div>  <!-- THIS IS THE END OF ROW 3 -->
+
+	
+	</div> <!-- THIS IS THE CONTAINER'S END -->
+			
+
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
+<script src='javascript/app.js'>
+</script>
+
+
+<!-- </script> -->
+</body>
+</html>
