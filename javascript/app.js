@@ -1,7 +1,4 @@
 $(document).on('ready', function (){
-
-
-    
     // Initialize variables for google API
 
     var city = "";
@@ -13,40 +10,29 @@ $(document).on('ready', function (){
     
     var queryZipURL = "";
    
-
-
 	var startDate;
 
 	var endDate;
-
-	// var cityZip;
 
 	var jambaseQueryURL;
 
 	var event = {};
 
-	// var jambaseQueryURL = 'http://api.jambase.com/search?zip=' + cityZip +
-	// '&radius=25&startDate=' +startDate + 
-	// '&endDate=' + endDate + 
-	// '&user=jambase&apikey=tce5wmzuk9w333ns7nv4xsv9';
+	$("#startDateInput").datepicker();
 
-
-
-
-
-
+	$("#endDateInput").datepicker();
 
 	$("#startDateInput").change(function(){
-	    startDate = $("#startDateInput").val();
+		startDate = moment($("#startDateInput").val()).format().slice(0,13);
 	    console.log ('start date: ' + startDate);
 	});
 
 	$("#endDateInput").change(function(){
-		endDate = $('#endDateInput').val();
+		endDate = moment($('#endDateInput').val()).format().slice(0,13);
 		console.log('end date: ' + endDate);
 	})
-
-
+	
+ 	
 	
 	//click handler for submit button.
 	$('#search').on('click', function(){
@@ -76,36 +62,22 @@ $(document).on('ready', function (){
 			.done(function(response) {
 				zipCode = response.results[0].address_components[7].long_name;
 				console.log("zip: " + zipCode);
+				
+				jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+									'&radius=10&startDate='+startDate+
+									'%3A00%3A00&endDate='+endDate+
+									'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
 
-				//JAMBASE CALL
-				//Needs to be nested inside this ajax call to force it to start after zip code is retrieved
+				// actualURL='http://api.jambase.com/events?zipCode=78701&radius=10&startDate=2017-03-07T20%3A00%3A00&endDate=2017-03-17T20%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9'
 
-				// cityZip = $('#cityInput').val();
-				jambaseQueryURL = 'http://api.jambase.com/search?zip=' + zipCode +
-					'&radius=25&startDate=' + startDate.toISOString(); + 
-					'&endDate=' + endDate.toISOString(); + 
-					'&user=jambase&apikey=tce5wmzuk9w333ns7nv4xsv9';
-				console.log(jambaseQueryURL);
-				// $.ajax({
-				// 	url: jambaseQueryURL,
-				// 	method: 'GET'
-				// }).done(function (snap){
-
-				// 	numberOfEvents = snap.Info.TotalResults;
-				// 	event.VenueName = snap.Events[0].Venue.Name;
-				// 	event.Address = snap.Events[0].Venue.Address;
-				// 	event.City = snap.Events[0].Venue.City;
-				// 	event.Zip = snap.Events[0].Venue.ZipCode;
-				// 	event.Artist = snap.Events[0].Artists.Name;
-				// 	event.Date = snap.Events[0].Date;
-				// 	event.venueURL = snap.Events[0].Venue.URL;
-				// 	event.ticketURL = snap.Events[0].TicketURL;
-
-				// 	console.log(event);
-				// })
-
-
+				$.ajax({
+					url: jambaseQueryURL,
+					method: "GET"
+				}) .done (function(snap){
+					console.log(snap);
+				})
 			});
+			
 		});
 
 		      //ajax call to get information from Weather Underground
