@@ -1,0 +1,98 @@
+body{
+	/*width: 1024px;*/
+	/*margin: auto;*/
+}
+.container{
+	background-image: url("guitar1.png");
+
+}
+#header1{
+	height: 300px;
+	width:100%;
+	background-color:#ff8900;
+	border-bottom-left-radius: 50% 20%;
+  	border-bottom-right-radius: 50% 20%;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  	text-align: center;
+}
+
+#row1{
+	margin-top:-19px;
+}
+#row2{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+
+#logo {
+	color:white;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 70px;
+	padding-top: 100px;
+}
+
+
+roundedMiniHeader {
+	width: 100%;
+	height: 50px;
+	background-color:#ff8900;
+	border-bottom-left-radius: 50% 30%;
+  	border-bottom-right-radius: 50% 30%;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  	text-align: center;
+  	padding-top: 1px;
+  	color:white;
+}
+
+.miniHeaderLabel {
+	color: white;
+	margin-top: 1px;
+}
+
+
+
+#searchPannel {
+	background-color:#ff8900;
+	border-bottom-left-radius: 50% 10%;
+  	border-bottom-right-radius: 50% 10%;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn{
+	text-align: right;
+}
+
+.h3, h3 {
+    font-size: 24px;
+    margin-top: 12px;
+}
+
+.startBtn{
+	text-align: right;
+}
+
+#mapRow{
+	text-align: center;
+}
+
+#wheatherLabelRow {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.tempIndicator {
+	color:white;
+	font-size:36px;
+	font-weight: bolder;
+}
+
+#buttonBox {
+	margin-top:30px;
+	margin-bottom: 30px;
+	text-align: right;
+}
+
+#seeSaved {
+	margin: 5px;
+}
