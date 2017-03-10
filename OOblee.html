@@ -125,6 +125,7 @@
 						
 				  		  <div class="row" id="mapRow">
 						  		<h3>Venue Map</h3>
+						  		<div id="map"></div>
 						
 						  </div>
 
@@ -136,7 +137,7 @@
 	
 	</div> <!-- THIS IS THE CONTAINER'S END -->
 			
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	
 	$(document).ready(function() {
     $("#startDateInput").datepicker();
@@ -149,11 +150,31 @@ $("#startDateInput").change(function(){
 });
 
   });
-</script>
+</script> -->
+<!-- <script type="text/javascript">
+	      function initMap() {
+        var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: coordinates
+        });
+        
+        var marker = new google.maps.Marker({
+          position: coordinates,
+          map: map
+        });
+      }
+	
+</script> -->
+
+<!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap">
+</script> -->
+
 <script src='javascript/app.js'>
 </script>
 
 
-</script>
+<!-- </script> -->
 </body>
 </html>
