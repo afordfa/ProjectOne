@@ -1,3 +1,17 @@
+function initMap() {
+var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 10,
+  center: coordinates
+});
+
+var marker = new google.maps.Marker({
+  position: coordinates,
+  map: map
+});
+}
+
+      
 $(document).on('ready', function (){
 
 
@@ -31,18 +45,7 @@ $(document).on('ready', function (){
 	// '&user=jambase&apikey=tce5wmzuk9w333ns7nv4xsv9';
 
 
-      function initMap() {
-        var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: coordinates
-        });
-        
-        var marker = new google.maps.Marker({
-          position: coordinates,
-          map: map
-        });
-      }
+
 	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
 	// script.type = 'text/javascript';
 	
