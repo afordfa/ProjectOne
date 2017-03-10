@@ -101,3 +101,17 @@ roundedMiniHeader {
 #seeSaved {
 	margin: 5px;
 }
+
+#concertHeading{
+	background-color:#ff8900;
+}
+
+.panel-default{
+	border-color:#ff8900;
+}
+
+th {
+	text-align: center;
+	color: #ff8900
+	
+}

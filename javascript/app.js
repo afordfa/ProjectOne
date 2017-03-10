@@ -33,7 +33,12 @@ $(document).on('ready', function (){
 	
 	$("body").append(script);
 
+	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
+	
+	$("body").append(script);
+
 	$("#startDateInput").datepicker();
+
 
 	$("#endDateInput").datepicker();
 
