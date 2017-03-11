@@ -100,7 +100,7 @@ $(document).on('ready', function (){
 		//debug
 		zipCode = "78701";
 		console.log(zipCode);
-		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		jambaseQueryURL = 'https://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
 								'%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
