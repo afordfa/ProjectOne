@@ -118,7 +118,7 @@ $(document).on('ready', function (){
 				$('#concertTable').append(
 					'<tr><td>'+artistName+'</td>'+
 					'<td>'+venueName+'</td>'+
-					'<td>'+eventDate+'</td></tr>'
+					'<td>'+eventDate+'</td></tr>');
 
 
 				snap.Events.forEach(function(event) {
@@ -143,6 +143,7 @@ $(document).on('ready', function (){
 						'<td>'+eventDate+'</td></tr>'
 					);
 				})
+			});
 		})
 
 		
