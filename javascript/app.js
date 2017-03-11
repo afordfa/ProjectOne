@@ -1,15 +1,15 @@
-function initMap() {
-var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
-map = new google.maps.Map(document.getElementById('map'), {
-  zoom: 10,
-  center: coordinates
-});
+// function initMap() {
+// var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+// map = new google.maps.Map(document.getElementById('map'), {
+//   zoom: 10,
+//   center: coordinates
+// });
 
-var marker = new google.maps.Marker({
-  position: coordinates,
-  map: map
-});
-}
+// var marker = new google.maps.Marker({
+//   position: coordinates,
+//   map: map
+// });
+// }
       
 $(document).on('ready', function (){
     // Initialize variables for google API
@@ -60,58 +60,58 @@ $(document).on('ready', function (){
 		console.log(state);
 
 	    // First ajax call to get latitude and longitude from google
-		$.ajax({
-	        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
-	        method: "GET"
-	      })
+		// $.ajax({
+	 //        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
+	 //        method: "GET"
+	 //      })
 	   
-		.done(function(response) {
-			console.log(response);
-			latitude = response.results[0].geometry.location.lat;
-			longitude = response.results[0].geometry.location.lng;
-			queryZipURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI"
+		// .done(function(response) {
+		// 	console.log(response);
+		// 	latitude = response.results[0].geometry.location.lat;
+		// 	longitude = response.results[0].geometry.location.lng;
+		// 	queryZipURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI"
 
 			//Nested ajax call to use latitude and longitude to get zip code
-			$.ajax({
-				url: queryZipURL,
-				method: "GET"
-			})
-			.done(function(response) {
-				console.log(response);
-				zipCode = response.results[0].address_components[7].long_name;
-				console.log("zip: " + zipCode);
+		// 	$.ajax({
+		// 		url: queryZipURL,
+		// 		method: "GET"
+		// 	})
+		// 	.done(function(response) {
+		// 		console.log(response);
+		// 		zipCode = response.results[0].address_components[7].long_name;
+		// 		console.log("zip: " + zipCode);
 				
-				jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
-									'&radius=10&startDate='+startDate+
-									'%3A00%3A00&endDate='+endDate+
-									'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+		// 		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// 							'&radius=10&startDate='+startDate+
+		// 							'%3A00%3A00&endDate='+endDate+
+		// 							'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
 
-				$.ajax({
-					url: jambaseQueryURL,
-					method: "GET"
-				}) .done (function(snap){
-					console.log(snap);
-					artistName = snap.Events[0].Artists[0].Name;
-					venueName = snap.Events[0].Venue.Name;
-					venueAddress = snap.Events[0].Venue.Address;
-					eventDate = snap.Events[0].Date;
-					eventDate = eventDate.slice(0,10);
+		// 		$.ajax({
+		// 			url: jambaseQueryURL,
+		// 			method: "GET"
+		// 		}) .done (function(snap){
+		// 			console.log(snap);
+		// 			artistName = snap.Events[0].Artists[0].Name;
+		// 			venueName = snap.Events[0].Venue.Name;
+		// 			venueAddress = snap.Events[0].Venue.Address;
+		// 			eventDate = snap.Events[0].Date;
+		// 			eventDate = eventDate.slice(0,10);
 
-					console.log(
-						'artist name: '+artistName,
-						'venue name: '+venueName,
-						'venue address: '+venueAddress,
-						'event date: '+eventDate
-					);
+		// 			console.log(
+		// 				'artist name: '+artistName,
+		// 				'venue name: '+venueName,
+		// 				'venue address: '+venueAddress,
+		// 				'event date: '+eventDate
+		// 			);
 
-					$('#concertTable').append(
-						'</tr><tr><td>'+artistName+'</td>'+
-						'<td>'+venueName+'</td>'+
-						'<td>'+eventDate+'</td></tr>'
-						);
-				})				
-			});
-		});
+		// 			$('#concertTable').append(
+		// 				'</tr><tr><td>'+artistName+'</td>'+
+		// 				'<td>'+venueName+'</td>'+
+		// 				'<td>'+eventDate+'</td></tr>'
+		// 				);
+		// 		})				
+		// 	});
+		// });
 	    //ajax call to get information from Weather Underground
 		$.ajax({
         	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
