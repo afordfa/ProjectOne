@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>OOblee Now what</title>
+	<title>OOblee</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
@@ -62,36 +62,53 @@
 					</div>
 					
 		<!-- THIS IS A SUBROW FOR THE WEATHER SECCTION  -->
+			<!-- ///////////////  WEATHER LABEL //////////////////////////////////////-->
+					
+
 					<div class="row" id="wheatherLabelRow"> 
-						<h3 class= "miniHeaderLabel">Local Weather</h3>
+							<h3 class= "miniHeaderLabel">Local Weather</h3>
 					</div>
 
+									
 					<div class="row" id="highAndPictureRow">
 						
-						<div class="col-xs-6" id="highTemp">
-							<p>High</p>
-							<h1 class="tempIndicator">17&deg;F
-							</h1>
-						</div>
 
-						<div class="col-xs-6" id="highTemp">
-							<img src="assets/chancerain.gif">
-						</div>
-					</div>
-					
-					<div class="row" id="lowAndDateRow">
+			<!-- ///////////////  HI TEMP FORECAST //////////////////////////////////////-->
 
-						<div class="col-xs-6" id="LowTemp">
-							<p>Low</p>
-							<h1 class="tempIndicator">1&deg;F
-							</h1>
-						</div>
-						
+							<div class="col-xs-6" id="highTemp">
+								<p class ="weatherLabel">High</p>
+								<h1 class="tempIndicator">17&deg;F
+								</h1>
+							</div>
+
+			
+			<!-- ///////////////  DATE //////////////////////////////////////-->
+
 						<div class="col-xs-6 tempIndicator" id="weatherDate">
 							<h1> 6/2/18 </h1>
 						</div>
+			
+					
+					</div> 	<!-- END ROW highAndPictureRow -->
+					
+					<div class="row" id="lowAndDateRow">
 
-					</div>
+
+			<!-- ///////////////  LOW TEMP FORECAST //////////////////////////////////////-->
+						
+						<div class="col-xs-6" id="LowTemp">
+							<p class ="weatherLabel">Low</p>
+							<h1 class="tempIndicator">1&deg;F
+							</h1>
+						</div>
+
+			<!-- ///////////////  WEATHER PICTURE //////////////////////////////////////-->
+
+							<div class="col-xs-6" id="highTemp">
+								<img src="assets/chancerain.gif">
+							</div>			
+
+					</div> <!-- END ROW lowAndDateRow -->
 
 
 				</div> <!-- THIS IS THE END OF COLUMN FOR THE SEARCH PANNEL AND WEATHER-->
