@@ -14,6 +14,8 @@ var marker = new google.maps.Marker({
 var latitude = "";
 var longitude = "";
       
+///////////////////// STARTING DOCUMENT ON READY ///////////////
+
 $(document).on('ready', function (){
     // Initialize variables for google API
     var city = "";
@@ -50,7 +52,7 @@ $(document).on('ready', function (){
 		console.log('end date: ' + endDate);
 	})		
 	
-	//click handler for submit button.
+	////////// starting click handler for submit button.   //////////////////
 	$('#search').on('click', function(){
 		city = $("#cityInput").val();
 		state = $("#stateInput").val();
@@ -79,7 +81,11 @@ $(document).on('ready', function (){
 
 
 		//Ajax call to use latitude and longitude to get zip code
-		queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
+		
+		//got an extra API key for zipwise. Change which row is commented to switch between them.
+		
+		queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=qkgfv1x9ijil1ftw&format=json&string=" 
+		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
       		+ city + "&state=" + state;
 		$.ajax({
 			url: queryZipURL,
@@ -88,15 +94,18 @@ $(document).on('ready', function (){
 		.done(function(response) {
 			console.log(response);
 			zipCode = response.results[0].zip;
-			console.log(zipCode);
+
 			
 		
 		//debug
 		zipCode = "78701";
+		console.log(zipCode);
 		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
 								'%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+
+
 		$.ajax({
 				url: jambaseQueryURL,
 				method: "GET"
@@ -214,5 +223,5 @@ $(document).on('ready', function (){
       		}
 
 		});
-	})
-})	
+	});
+});	
