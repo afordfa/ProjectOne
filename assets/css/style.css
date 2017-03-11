@@ -2,12 +2,13 @@ body{
 	/*width: 1024px;*/
 	/*margin: auto;*/
 }
+
 .container{
 	background-image: url("guitar1.png");
-
 }
+
 #header1{
-	height: 300px;
+	height: 250px;
 	width:100%;
 	background-color:#ff8900;
 	border-bottom-left-radius: 50% 20%;
@@ -19,11 +20,11 @@ body{
 #row1{
 	margin-top:-19px;
 }
+
 #row2{
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
-
 
 #logo {
 	color:white;
@@ -31,6 +32,7 @@ body{
 	font-size: 70px;
 	padding-top: 100px;
 }
+
 
 #arrows {
 	color:white;
@@ -43,10 +45,10 @@ body{
 	font-size: 28px;
 }
 
+
 .attribution {
 	color: white;
 }
-
 
 
 #searchPannel {
@@ -113,7 +115,6 @@ body{
 th {
 	text-align: center;
 	color: #ff8900
-	
 }
 
 .weatherLabel {
@@ -121,5 +122,10 @@ th {
 	margin: 1px;
 	margin:0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
+}
+
+#tableContainer {
+	height: 300px;
+	overflow: auto;
 }
 
