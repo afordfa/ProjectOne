@@ -59,7 +59,7 @@ $(document).on('ready', function (){
 
 	    // First ajax call to get latitude and longitude from google
 		$.ajax({
-	        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
+	        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
 	        method: "GET"
 	      })
 	   
@@ -90,7 +90,7 @@ $(document).on('ready', function (){
 			zipCode = response.results[0].zip;
 			console.log(zipCode);
 			
-			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+			jambaseQueryURL = 'https://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
 								'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
@@ -122,7 +122,7 @@ $(document).on('ready', function (){
 		});
 	    //ajax call to get information from Weather Underground
 		$.ajax({
-        	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
+        	url: "https://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
           	state + "/" + city + ".json",
         	method: "GET"
       	})
