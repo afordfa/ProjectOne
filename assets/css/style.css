@@ -33,21 +33,12 @@ body{
 }
 
 
-roundedMiniHeader {
-	width: 100%;
-	height: 50px;
-	background-color:#ff8900;
-	border-bottom-left-radius: 50% 30%;
-  	border-bottom-right-radius: 50% 30%;
-  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  	text-align: center;
-  	padding-top: 1px;
-  	color:white;
-}
 
 .miniHeaderLabel {
 	color: white;
 	margin-top: 1px;
+	font-weight: 600;
+	font-size: 28px;
 }
 
 
@@ -77,8 +68,9 @@ roundedMiniHeader {
 }
 
 #map {
-	width: 400px;
+	width: 500px;
 	height: 400px;
+	margin:auto;
 }
 
 #wheatherLabelRow {
@@ -90,6 +82,8 @@ roundedMiniHeader {
 	color:white;
 	font-size:36px;
 	font-weight: bolder;
+	margin:0px 0px 15px 0px;
+	padding: 0px 0px 20px 0px;
 }
 
 #buttonBox {
@@ -115,3 +109,11 @@ th {
 	color: #ff8900
 	
 }
+
+.weatherLabel {
+	color: white;
+	margin: 1px;
+	margin:0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
