@@ -31,6 +31,7 @@ $(document).on('ready', function (){
 	var venueName;
 	var venueAddress; 
 	var eventDate;
+	var forecastIndex = 0;
 
 
 
@@ -70,6 +71,7 @@ $(document).on('ready', function (){
 			console.log(latitude);
 			console.log(longitude);
 
+			//this adds the script tag for the map
 			var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
 			$("body").append(script);
 
@@ -112,7 +114,7 @@ $(document).on('ready', function (){
 				);
 
 				$('#concertTable').append(
-					'</tr><tr><td>'+artistName+'</td>'+
+					'<tr><td>'+artistName+'</td>'+
 					'<td>'+venueName+'</td>'+
 					'<td>'+eventDate+'</td></tr>'
 					);
@@ -133,7 +135,7 @@ $(document).on('ready', function (){
 	      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
 	      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
 	      		var iconImg = response.forecast.simpleforecast.forecastday[i].icon_url;
-	      		var month = response.forecast.simpleforecast.forecastday[i].date.monthname;
+	      		var month = response.forecast.simpleforecast.forecastday[i].date.month;
 	      		var day = response.forecast.simpleforecast.forecastday[i].date.day;
 	      		var year = response.forecast.simpleforecast.forecastday[i].date.year;
 	      		forecastArray.push({
@@ -145,7 +147,45 @@ $(document).on('ready', function (){
 	      			year: year
 	      		})
       		}
+
       		console.log(forecastArray);
+      		$("#weatherDate").html(forecastArray[forecastIndex].month + "/" + forecastArray[forecastIndex].day);
+      		$("#highTemp").html(forecastArray[forecastIndex].highTemp + String.fromCharCode(176) + "F");
+      		$("#lowTemp").html(forecastArray[forecastIndex].lowTemp + String.fromCharCode(176) + "F");
+      		var image = $("<img>");
+      		image.attr("src", forecastArray[forecastIndex].iconImg);
+      		var addImage = $("#weatherImg").append(image);
+      		
+      		
+      		$("#leftArrow").on("click", function(){
+      			if (forecastIndex == 0) {}
+      				else {
+      					forecastIndex --;
+      					updateWeatherInfo();
+      				}
+      		});
+
+      		$("#rightArrow").on("click", function(){
+      			if (forecastIndex == 9) {}
+      				else {
+      					forecastIndex ++;
+      					updateWeatherInfo();
+      				}
+      		});
+
+
+      		function updateWeatherInfo() {
+		      	$("#weatherDate").empty();
+				$("#highTemp").empty();
+				$("#lowTemp").empty();
+				$("#weatherImg").empty();
+				$("#weatherDate").html(forecastArray[forecastIndex].month + "/" + forecastArray[forecastIndex].day);
+				$("#highTemp").html(forecastArray[forecastIndex].highTemp + String.fromCharCode(176) + "F");
+				$("#lowTemp").html(forecastArray[forecastIndex].lowTemp + String.fromCharCode(176) + "F");
+				image.attr("src", forecastArray[forecastIndex].iconImg);
+				addImage = $("#weatherImg").append(image);
+      		}
+
 		});
 	})
 })	
