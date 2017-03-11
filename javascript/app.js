@@ -30,7 +30,7 @@ $(document).on('ready', function (){
 	var venueAddress; 
 	var eventDate;
 	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
-	
+	var arr;
 	$("body").append(script);
 
 	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
@@ -74,49 +74,113 @@ $(document).on('ready', function (){
 
 		});
 
-
-		//Ajax call to use latitude and longitude to get zip code
-		queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
-      		+ city + "&state=" + state;
-		$.ajax({
-			url: queryZipURL,
-			method: "GET"
-		})
-		.done(function(response) {
-			console.log(response);
-			zipCode = response.results[0].zip;
-			console.log(zipCode);
-			
-			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		
+		//debug
+		zipCode = "78701";
+		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
-								'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
-
-			$.ajax({
+								'%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+		$.ajax({
 				url: jambaseQueryURL,
 				method: "GET"
 			}) .done (function(snap){
 				console.log(snap);
-				artistName = snap.Events[0].Artists[0].Name;
-				venueName = snap.Events[0].Venue.Name;
-				venueAddress = snap.Events[0].Venue.Address;
-				eventDate = snap.Events[0].Date;
-				eventDate = eventDate.slice(0,10);
 
-				console.log(
-					'artist name: '+artistName,
-					'venue name: '+venueName,
-					'venue address: '+venueAddress,
-					'event date: '+eventDate
-				);
 
-				$('#concertTable').append(
-					'</tr><tr><td>'+artistName+'</td>'+
-					'<td>'+venueName+'</td>'+
-					'<td>'+eventDate+'</td></tr>'
+				snap.Events.forEach(function(event) {
+					var artistName = event.Artists.map(function(artist) {
+						return artist.Name;
+					}).join("<br>");
+
+					var venueName = event.Venue.Name;
+					var venueAddress = event.Venue.Address;
+					var eventDate = event.Date.slice(0,10);
+
+					console.log(
+						'artist name: '+artistName,
+						'venue name: '+venueName,
+						'venue address: '+venueAddress,
+						'event date: '+eventDate
 					);
-			})				
-		});
+
+					$('#concertTable').append(
+						'</tr><tr><td>'+artistName+'</td>'+
+						'<td>'+venueName+'</td>'+
+						'<td>'+eventDate+'</td></tr>'
+					);
+				})
+		})
+
+		//debug
+
+		// //Ajax call to use latitude and longitude to get zip code
+		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
+  //     		+ city + "&state=" + state;
+		// $.ajax({
+		// 	url: queryZipURL,
+		// 	method: "GET"
+		// })
+		// .done(function(response) {
+		// 	console.log(response);
+		// 	zipCode = response.results[0].zip;
+		// 	console.log(zipCode);
+			
+		// 	jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// 						'&radius=10&startDate='+startDate+
+		// 						'%3A00%3A00&endDate='+endDate+
+		// 						'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+
+		// 	$.ajax({
+		// 		url: jambaseQueryURL,
+		// 		method: "GET"
+		// 	}) .done (function(snap){
+		// 		console.log(snap);
+
+		// 		artistName = snap.Events[0].Artists[0].Name;
+		// 		venueName = snap.Events[0].Venue.Name;
+		// 		venueAddress = snap.Events[0].Venue.Address;
+		// 		eventDate = snap.Events[0].Date;
+		// 		eventDate = eventDate.slice(0,10);
+
+
+		// 		console.log(
+		// 			'artist name: '+artistName,
+		// 			'venue name: '+venueName,
+		// 			'venue address: '+venueAddress,
+		// 			'event date: '+eventDate
+		// 		);
+
+		// 		$('#concertTable').append(
+		// 			'</tr><tr><td>'+artistName[i]+'</td>'+
+		// 			'<td>'+venueName[i]+'</td>'+
+		// 			'<td>'+eventDate[i]+'</td></tr>'
+		// 		);
+
+		// 		// for(i=0; i<snap.Events.length; i++){
+
+		// 		// 	artistName[i] = snap.Events[i].Artists[0].Name;
+		// 		// 	venueName[i] = snap.Events[i].Venue.Name;
+		// 		// 	venueAddress[i] = snap.Events[i].Venue.Address;
+		// 		// 	eventDate[i] = snap.Events[i].Date.slice(0,10);
+		// 		// 	// eventDate = eventDate.slice(0,10);
+
+
+		// 		// 	console.log(
+		// 		// 		'artist name: '+artistName,
+		// 		// 		'venue name: '+venueName,
+		// 		// 		'venue address: '+venueAddress,
+		// 		// 		'event date: '+eventDate
+		// 		// 	);
+
+		// 		// 	$('#concertTable').append(
+		// 		// 		'</tr><tr><td>'+artistName[i]+'</td>'+
+		// 		// 		'<td>'+venueName[i]+'</td>'+
+		// 		// 		'<td>'+eventDate[i]+'</td></tr>'
+		// 		// 	);
+		// 		// }
+		// 	})				
+		// });
 	    //ajax call to get information from Weather Underground
 		$.ajax({
         	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
