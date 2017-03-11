@@ -1,5 +1,5 @@
 function initMap() {
-var coordinates = {lat: 39.76161889999999, lng: -104.9622498};
+var coordinates = {lat: latitude, lng: longitude};
 map = new google.maps.Map(document.getElementById('map'), {
   zoom: 10,
   center: coordinates
@@ -10,13 +10,15 @@ var marker = new google.maps.Marker({
   map: map
 });
 }
+
+var latitude = "";
+var longitude = "";
       
 $(document).on('ready', function (){
     // Initialize variables for google API
     var city = "";
     var state = "";
-    var latitude = "";
-    var longitude = "";
+
     var zipCode = "";
     var forecastArray = [];
     var queryZipURL = "";
@@ -29,13 +31,8 @@ $(document).on('ready', function (){
 	var venueName;
 	var venueAddress; 
 	var eventDate;
-	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
-	
-	$("body").append(script);
 
-	var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');
-	
-	$("body").append(script);
+
 
 	$("#startDateInput").datepicker();
 
@@ -66,11 +63,15 @@ $(document).on('ready', function (){
 	      })
 	   
 		.done(function(response) {
+			console.log("get latlong: ");
 			console.log(response);
 			latitude = response.results[0].geometry.location.lat;
 			longitude = response.results[0].geometry.location.lng;
+			console.log(latitude);
+			console.log(longitude);
 
-
+			var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
+			$("body").append(script);
 
 		});
 
