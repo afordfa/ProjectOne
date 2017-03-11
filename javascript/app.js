@@ -142,4 +142,28 @@ $(document).on('ready', function (){
       		console.log(forecastArray);
 		});
 	})
+
+
+
+	    var city = "Berlin";
+    	var state = "Germany";
+    	// var queryURL = "https://www.zipcodeapi.com/rest/4chCHPYAEVSfXvr5H7Oo3tSlBYQhQXgVaxySnwt2rmhpRJuzQjYUNQgoP7GF4WBf/city-zips.json/" + city + "/" + state;
+
+    	var queryURL = 	"https://www.zipcodeapi.com/rest/4chCHPYAEVSfXvr5H7Oo3tSlBYQhQXgVaxySnwt2rmhpRJuzQjYUNQgoP7GF4WBf/city-zips.jsonp/Aspen/CO"
+
+
+
+      //ajax call to get information from Weather Underground
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      //when call is complete, sets variables for weather based on the city and state entered.
+      //uses 10-day forecast from weather underground.
+      //need to attribute weatherunderground in app.
+      .done(function(response) {
+      	console.log(response);
+
+      });
 })	
