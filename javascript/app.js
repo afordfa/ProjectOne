@@ -31,8 +31,8 @@ $(document).on('ready', function (){
 	var venueName;
 	var venueAddress; 
 	var eventDate;
-	var forecastIndex = 0;
 
+	var forecastIndex = 0;
 
 
 	$("#startDateInput").datepicker();
@@ -91,11 +91,14 @@ $(document).on('ready', function (){
 			console.log(zipCode);
 			
 			jambaseQueryURL = 'https://api.jambase.com/events?zipCode='+zipCode+
+		
+		//debug
+		zipCode = "78701";
+		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
-								'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
-
-			$.ajax({
+								'%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+		$.ajax({
 				url: jambaseQueryURL,
 				method: "GET"
 			}) .done (function(snap){
@@ -117,9 +120,33 @@ $(document).on('ready', function (){
 					'<tr><td>'+artistName+'</td>'+
 					'<td>'+venueName+'</td>'+
 					'<td>'+eventDate+'</td></tr>'
+
+
+				snap.Events.forEach(function(event) {
+					var artistName = event.Artists.map(function(artist) {
+						return artist.Name;
+					}).join("<br>");
+
+					var venueName = event.Venue.Name;
+					var venueAddress = event.Venue.Address;
+					var eventDate = event.Date.slice(0,10);
+
+					console.log(
+						'artist name: '+artistName,
+						'venue name: '+venueName,
+						'venue address: '+venueAddress,
+						'event date: '+eventDate
 					);
-			})				
-		});
+
+					$('#concertTable').append(
+						'</tr><tr><td>'+artistName+'</td>'+
+						'<td>'+venueName+'</td>'+
+						'<td>'+eventDate+'</td></tr>'
+					);
+				})
+		})
+
+		
 	    //ajax call to get information from Weather Underground
 		$.ajax({
         	url: "https://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
