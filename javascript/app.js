@@ -33,6 +33,7 @@ $(document).on('ready', function (){
 	var venueName;
 	var venueAddress; 
 	var eventDate;
+	var eventArray = [];
 
 	var forecastIndex = 0;
 
@@ -97,62 +98,47 @@ $(document).on('ready', function (){
 
 			
 		
-		//debug
-		zipCode = "78701";
 		console.log(zipCode);
-		jambaseQueryURL = 'https://api.jambase.com/events?zipCode='+zipCode+
+		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
-								'%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+								// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
 								//extra api key
-								// '%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+								'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
 
 		$.ajax({
 				url: jambaseQueryURL,
 				method: "GET"
 			}) .done (function(snap){
-				console.log(snap);
-				artistName = snap.Events[0].Artists[0].Name;
-				venueName = snap.Events[0].Venue.Name;
-				venueAddress = snap.Events[0].Venue.Address;
-				eventDate = snap.Events[0].Date;
-				eventDate = eventDate.slice(0,10);
-
-				console.log(
-					'artist name: '+artistName,
-					'venue name: '+venueName,
-					'venue address: '+venueAddress,
-					'event date: '+eventDate
-				);
-
-				$('#concertTable').append(
-					'<tr><td>'+artistName+'</td>'+
-					'<td>'+venueName+'</td>'+
-					'<td>'+eventDate+'</td></tr>');
-
-
-				snap.Events.forEach(function(event) {
-					var artistName = event.Artists.map(function(artist) {
+				eventArray = snap.Events;
+				console.log(eventArray);
+				for (var i=0; i<eventArray.length; i++) {
+					artistName = eventArray[i].Artists.map(function(artist) {
 						return artist.Name;
 					}).join("<br>");
+					venueName = eventArray[i].Venue.Name;
+					venueAddress = eventArray[i].Venue.Address;
+					eventDate = eventArray[i].Date.slice(0,10);
 
-					var venueName = event.Venue.Name;
-					var venueAddress = event.Venue.Address;
-					var eventDate = event.Date.slice(0,10);
+					var addRow = $("#concertTable");
 
-					console.log(
-						'artist name: '+artistName,
-						'venue name: '+venueName,
-						'venue address: '+venueAddress,
-						'event date: '+eventDate
-					);
 
-					$('#concertTable').append(
-						'</tr><tr><td>'+artistName+'</td>'+
-						'<td>'+venueName+'</td>'+
-						'<td>'+eventDate+'</td></tr>'
-					);
-				})
+					var columnArtist = $("<td>" + artistName + "</td>");
+					columnArtist.attr("class", "table-data");
+					columnArtist.attr("value", i);
+					var columnVenue = $("<td>" + venueName + "</td>");
+					columnVenue.attr("class", "table-data");
+					columnVenue.attr("value", i);
+					var columnDate = $("<td>" + eventDate + "</td>");
+					columnDate.attr("class", "table-data");
+					columnDate.attr("value", i);
+
+					var newRow = $("<tr class= \"concert-row\">");
+					newRow.append(columnArtist);
+					newRow.append(columnVenue);
+					newRow.append(columnDate);
+					addRow.append(newRow);
+				}
 			});
 		})
 
@@ -224,5 +210,12 @@ $(document).on('ready', function (){
       		}
 
 		});
+	});
+
+
+	$(document).on("click", ".table-data", function(){
+		console.log(this);
+		console.log(this.value);
+		
 	});
 });	
