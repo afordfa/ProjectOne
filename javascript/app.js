@@ -37,6 +37,15 @@ $(document).on('ready', function (){
 
 	var forecastIndex = 0;
 
+	var config = {
+        apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
+        authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
+        databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
+        storageBucket: "groupprojectcodi-1488653714316.appspot.com",
+        messagingSenderId: "681410190421"
+    };
+
+    firebase.initializeApp(config);
 
 	$("#startDateInput").datepicker();
 
@@ -80,25 +89,92 @@ $(document).on('ready', function (){
 
 		});
 
+	zipCode = 78610;
+		// //Ajax call to use latitude and longitude to get zip code
+		
+		// //got an extra API key for zipwise. Change which row is commented to switch between them.
+		
+		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=qkgfv1x9ijil1ftw&format=json&string=" 
+		// // queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
+  //     		+ city + "&state=" + state;
+		// $.ajax({
+		// 	url: queryZipURL,
+		// 	method: "GET"
+		// })
+		// .done(function(response) {
+		// 	console.log(response);
+		// 	zipCode = response.results[0].zip;
+		// 	zipCode = 78610;
 
-		//Ajax call to use latitude and longitude to get zip code
+			
 		
-		//got an extra API key for zipwise. Change which row is commented to switch between them.
-		
-		queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=qkgfv1x9ijil1ftw&format=json&string=" 
-		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
-      		+ city + "&state=" + state;
-		$.ajax({
-			url: queryZipURL,
-			method: "GET"
-		})
-		.done(function(response) {
-			console.log(response);
-			zipCode = response.results[0].zip;
+		// console.log(zipCode);
+		// jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// 						'&radius=10&startDate='+startDate+
+		// 						'%3A00%3A00&endDate='+endDate+
+		// 						// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+		// 						//extra api key
+		// 						'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+
+		// $.ajax({
+		// 		url: jambaseQueryURL,
+		// 		method: "GET"
+		// 	}) .done (function(snap){
+		// 		eventArray = snap.Events;
+		// 		console.log(eventArray);
+		// 		for (var i=0; i<eventArray.length; i++) {
+		// 			artistName = eventArray[i].Artists.map(function(artist) {
+		// 				return artist.Name;
+		// 			}).join("<br>");
+		// 			venueName = eventArray[i].Venue.Name;
+		// 			venueAddress = eventArray[i].Venue.Address;
+		// 			eventDate = eventArray[i].Date.slice(0,10);
+
+					// var addRow = $("#concertTable");
+
+
+					// var columnArtist = $("<td>" + artistName + "</td>");
+					// columnArtist.attr("class", "table-data");
+					// columnArtist.attr("value", i);
+					// var columnVenue = $("<td>" + venueName + "</td>");
+					// columnVenue.attr("class", "table-data");
+					// columnVenue.attr("value", i);
+					// var columnDate = $("<td>" + eventDate + "</td>");
+					// columnDate.attr("class", "table-data");
+					// columnDate.attr("value", i);
+					// var columnSaveData = $("<td>");
+					// var columnSaveButton = $("<button>SAVE</button>");
+					// columnSaveButton.attr("class", "btn btn-default save-button");
+					// columnSaveButton.attr("value", i);
+					// columnSaveData.append(columnSaveButton);
+
+					
+
+					// var newRow = $("<tr class= \"concert-row\">");
+					// newRow.append(columnArtist);
+					// newRow.append(columnVenue);
+					// newRow.append(columnDate);
+					// newRow.append(columnSaveData);
+					// addRow.append(newRow);
+
+
+		// 		}
+		// 	});
+		// })
+
+
+
+/////////////////THIS WAS MOVED OUTSIDE TO GET AWAY FROM THE ZIP CODE LIMIT
+////////////////DELETE THIS AND UN-COMMENT THE SECTION ABOVE!!!
+			
+			
+			zipCode = 78610;
 
 			
 		
 		console.log(zipCode);
+		
 		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
@@ -132,15 +208,31 @@ $(document).on('ready', function (){
 					var columnDate = $("<td>" + eventDate + "</td>");
 					columnDate.attr("class", "table-data");
 					columnDate.attr("value", i);
+					var columnSaveData = $("<td>");
+					var columnSaveButton = $("<button>SAVE</button>");
+					columnSaveButton.attr("class", "btn btn-default save-button");
+					columnSaveButton.attr("value", i);
+					columnSaveData.append(columnSaveButton);
+
+					
 
 					var newRow = $("<tr class= \"concert-row\">");
 					newRow.append(columnArtist);
 					newRow.append(columnVenue);
 					newRow.append(columnDate);
+					newRow.append(columnSaveData);
 					addRow.append(newRow);
+
+
+
 				}
 			});
-		})
+
+
+////////////////END OF SECTION///////////////////
+
+
+
 
 		
 	    //ajax call to get information from Weather Underground
@@ -213,9 +305,15 @@ $(document).on('ready', function (){
 	});
 
 
-	$(document).on("click", ".table-data", function(){
-		console.log(this);
-		console.log(this.value);
-		
-	});
+
+
+			$(document).on("click", ".table-data", function(){
+				console.log(this);
+				
+				var thisValue = $(this).attr("value");
+				console.log(thisValue);
+
+
+			});
+
 });	
