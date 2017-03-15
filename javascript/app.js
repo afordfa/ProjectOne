@@ -52,18 +52,18 @@ $(document).on('ready', function (){
 	var config = {
 
 		// Anita's Firebase
-		apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
-    	authDomain: "anitaproject1.firebaseapp.com",
-    	databaseURL: "https://anitaproject1.firebaseio.com",
-    	storageBucket: "anitaproject1.appspot.com",
-    	messagingSenderId: "163725238244"
+		// apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
+  //   	authDomain: "anitaproject1.firebaseapp.com",
+  //   	databaseURL: "https://anitaproject1.firebaseio.com",
+  //   	storageBucket: "anitaproject1.appspot.com",
+  //   	messagingSenderId: "163725238244"
 
     	//Zach's Firebase
-        // apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
-        // authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
-        // databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
-        // storageBucket: "groupprojectcodi-1488653714316.appspot.com",
-        // messagingSenderId: "681410190421"
+        apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
+        authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
+        databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
+        storageBucket: "groupprojectcodi-1488653714316.appspot.com",
+        messagingSenderId: "681410190421"
     };
 
     firebase.initializeApp(config);
@@ -110,7 +110,7 @@ $(document).on('ready', function (){
 
 		});
 
-	zipCode = 78610;
+	zipCode = 78701;
 		//Ajax call to use latitude and longitude to get zip code
 		
 		//got an extra API key for zipwise. Change which row is commented to switch between them.
@@ -126,7 +126,7 @@ $(document).on('ready', function (){
 			console.log(response);
 			//THIS NEEDS TO GO BACK IN THE FINAL VERSION!!!
 			// zipCode = response.results[0].zip;
-			zipCode = 78610;
+			zipCode = 78701;
 			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 									'&radius=10&startDate='+startDate+
 									'%3A00%3A00&endDate='+endDate+
@@ -328,12 +328,21 @@ $(document).on('ready', function (){
 		}).join("<br>");
 		var saveVenueName = eventArray[rowSelected].Venue.Name;
 		var saveEventDate = eventArray[rowSelected].Date.slice(0,10);
+		saveEventDate = moment(saveEventDate).format("dddd MMM Do");
 		firebase.database().ref().push({
         	artistName: saveArtistName,
         	venueName: saveVenueName,
         	eventDate: saveEventDate
     	})
 	});
+
+	firebase.database().ref().on('child_added', function(snap){
+		$("#savedConcertTable").append(
+			'<tr><td>'+snap.val().artistName+'</td>'+
+			'<td>'+snap.val().venueName+'</td>'+
+			'<td>'+snap.val().eventDate+'</td></tr>'
+		);		
+	})
 
 
 });	
