@@ -1,11 +1,11 @@
 function initMap() {
-var coordinates = {lat: latitude, lng: longitude};
+coordinates = {lat: latitude, lng: longitude};
 map = new google.maps.Map(document.getElementById('map'), {
   zoom: 10,
   center: coordinates
 });
 
-var marker = new google.maps.Marker({
+marker = new google.maps.Marker({
   position: coordinates,
   map: map
 });
@@ -13,6 +13,11 @@ var marker = new google.maps.Marker({
 
 var latitude = "";
 var longitude = "";
+var map;
+var marker;
+var coordinates;
+var script;
+var rowSelected;
       
 ///////////////////// STARTING DOCUMENT ON READY ///////////////
 
@@ -32,11 +37,9 @@ $(document).on('ready', function (){
     // Initialize variables for google API
     var city = "";
     var state = "";
-
     var zipCode = "";
     var forecastArray = [];
     var queryZipURL = "";
-	var map;
 	var startDate;
 	var endDate;
 	var jambaseQueryURL;
@@ -105,12 +108,12 @@ $(document).on('ready', function (){
 			console.log(longitude);
 
 			//this adds the script tag for the map
-			var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
+			script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
 			$("body").append(script);
 
 		});
 
-	zipCode = 78610;
+	zipCode = 78701;
 		//Ajax call to use latitude and longitude to get zip code
 		
 		//got an extra API key for zipwise. Change which row is commented to switch between them.
@@ -126,7 +129,7 @@ $(document).on('ready', function (){
 			console.log(response);
 			//THIS NEEDS TO GO BACK IN THE FINAL VERSION!!!
 			// zipCode = response.results[0].zip;
-			zipCode = 78610;
+			zipCode = 78701;
 			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 									'&radius=10&startDate='+startDate+
 									'%3A00%3A00&endDate='+endDate+
@@ -138,6 +141,7 @@ $(document).on('ready', function (){
 					method: "GET"
 			}) .done (function(snap){
 				eventArray = snap.Events;
+				console.log(eventArray);
 				for (var i=0; i<eventArray.length; i++) {
 					artistName = eventArray[i].Artists.map(function(artist) {
 						return artist.Name;
@@ -170,6 +174,23 @@ $(document).on('ready', function (){
 					newRow.append(columnSaveData);
 					addRow.append(newRow);
 				}
+
+				$(document).on("click", ".table-data", function(){
+					console.log(this);
+					var thisValue = $(this).attr("value");
+					console.log(thisValue);
+					console.log(eventArray);
+					latitude = eventArray[thisValue].Venue.Latitude;
+					longitude = eventArray[thisValue].Venue.Longitude;
+					console.log("new latitude: " + latitude);
+					console.log("new longitude: " + longitude);
+					
+
+					var new_marker_position = new google.maps.LatLng(latitude, longitude);
+
+						marker.setPosition(new_marker_position);
+				});
+
 			});
 		})
 
@@ -313,27 +334,25 @@ $(document).on('ready', function (){
 
 
 
-	$(document).on("click", ".table-data", function(){
-		console.log(this);
-		var thisValue = $(this).attr("value");
-		console.log(thisValue);
-	});
 
 
-	$(document).on("click", ".save-button", function(){
-		
-		var rowSelected = $(this).attr("value");
-		var saveArtistName = eventArray[rowSelected].Artists.map(function(artist) {
-			return artist.Name;
-		}).join("<br>");
-		var saveVenueName = eventArray[rowSelected].Venue.Name;
-		var saveEventDate = eventArray[rowSelected].Date.slice(0,10);
-		firebase.database().ref().push({
-        	artistName: saveArtistName,
-        	venueName: saveVenueName,
-        	eventDate: saveEventDate
-    	})
-	});
+
+				$(document).on("click", ".save-button", function(){
+					rowSelected = $(this).attr("value");
+					var saveArtistName = eventArray[rowSelected].Artists.map(function(artist) {
+					return artist.Name;
+					}).join("<br>");
+					var saveVenueName = eventArray[rowSelected].Venue.Name;
+					var saveEventDate = eventArray[rowSelected].Date.slice(0,10);
+					firebase.database().ref().push({
+        			artistName: saveArtistName,
+        			venueName: saveVenueName,
+        			eventDate: saveEventDate
+    				})
+
+    				
+
+				});
 
 
 });	
