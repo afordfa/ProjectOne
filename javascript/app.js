@@ -14,6 +14,8 @@ var marker = new google.maps.Marker({
 var latitude = "";
 var longitude = "";
       
+///////////////////// STARTING DOCUMENT ON READY ///////////////
+
 $(document).on('ready', function (){
 
 ///////  LAUNCH MY SAVED CONCERTS WINDOW //////////
@@ -43,8 +45,19 @@ $(document).on('ready', function (){
 	var venueName;
 	var venueAddress; 
 	var eventDate;
+	var eventArray = [];
 
+	var forecastIndex = 0;
 
+	var config = {
+        apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
+        authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
+        databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
+        storageBucket: "groupprojectcodi-1488653714316.appspot.com",
+        messagingSenderId: "681410190421"
+    };
+
+    firebase.initializeApp(config);
 
 	$("#startDateInput").datepicker();
 
@@ -61,7 +74,7 @@ $(document).on('ready', function (){
 		console.log('end date: ' + endDate);
 	})		
 	
-	//click handler for submit button.
+	////////// starting click handler for submit button.   //////////////////
 	$('#search').on('click', function(){
 		city = $("#cityInput").val();
 		state = $("#stateInput").val();
@@ -70,7 +83,7 @@ $(document).on('ready', function (){
 
 	    // First ajax call to get latitude and longitude from google
 		$.ajax({
-	        url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
+	        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
 	        method: "GET"
 	      })
 	   
@@ -82,57 +95,161 @@ $(document).on('ready', function (){
 			console.log(latitude);
 			console.log(longitude);
 
+			//this adds the script tag for the map
 			var script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
 			$("body").append(script);
 
 		});
 
+	zipCode = 78610;
+		// //Ajax call to use latitude and longitude to get zip code
+		
+		// //got an extra API key for zipwise. Change which row is commented to switch between them.
+		
+		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=qkgfv1x9ijil1ftw&format=json&string=" 
+		// // queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
+  //     		+ city + "&state=" + state;
+		// $.ajax({
+		// 	url: queryZipURL,
+		// 	method: "GET"
+		// })
+		// .done(function(response) {
+		// 	console.log(response);
+		// 	zipCode = response.results[0].zip;
+		// 	zipCode = 78610;
 
-		//Ajax call to use latitude and longitude to get zip code
-		queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=3hvbj4tu3e0sp7fy&format=json&string=" 
-      		+ city + "&state=" + state;
-		$.ajax({
-			url: queryZipURL,
-			method: "GET"
-		})
-		.done(function(response) {
-			console.log(response);
-			zipCode = response.results[0].zip;
-			console.log(zipCode);
 			
-			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		
+		// console.log(zipCode);
+		// jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+		// 						'&radius=10&startDate='+startDate+
+		// 						'%3A00%3A00&endDate='+endDate+
+		// 						// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+		// 						//extra api key
+		// 						'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+
+		// $.ajax({
+		// 		url: jambaseQueryURL,
+		// 		method: "GET"
+		// 	}) .done (function(snap){
+		// 		eventArray = snap.Events;
+		// 		console.log(eventArray);
+		// 		for (var i=0; i<eventArray.length; i++) {
+		// 			artistName = eventArray[i].Artists.map(function(artist) {
+		// 				return artist.Name;
+		// 			}).join("<br>");
+		// 			venueName = eventArray[i].Venue.Name;
+		// 			venueAddress = eventArray[i].Venue.Address;
+		// 			eventDate = eventArray[i].Date.slice(0,10);
+
+					// var addRow = $("#concertTable");
+
+
+					// var columnArtist = $("<td>" + artistName + "</td>");
+					// columnArtist.attr("class", "table-data");
+					// columnArtist.attr("value", i);
+					// var columnVenue = $("<td>" + venueName + "</td>");
+					// columnVenue.attr("class", "table-data");
+					// columnVenue.attr("value", i);
+					// var columnDate = $("<td>" + eventDate + "</td>");
+					// columnDate.attr("class", "table-data");
+					// columnDate.attr("value", i);
+					// var columnSaveData = $("<td>");
+					// var columnSaveButton = $("<button>SAVE</button>");
+					// columnSaveButton.attr("class", "btn btn-default save-button");
+					// columnSaveButton.attr("value", i);
+					// columnSaveData.append(columnSaveButton);
+
+					
+
+					// var newRow = $("<tr class= \"concert-row\">");
+					// newRow.append(columnArtist);
+					// newRow.append(columnVenue);
+					// newRow.append(columnDate);
+					// newRow.append(columnSaveData);
+					// addRow.append(newRow);
+
+
+		// 		}
+		// 	});
+		// })
+
+
+
+/////////////////THIS WAS MOVED OUTSIDE TO GET AWAY FROM THE ZIP CODE LIMIT
+////////////////DELETE THIS AND UN-COMMENT THE SECTION ABOVE!!!
+			
+			
+			zipCode = 78610;
+
+			
+		
+		console.log(zipCode);
+		
+		jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
 								'&radius=10&startDate='+startDate+
 								'%3A00%3A00&endDate='+endDate+
+								// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+								//extra api key
 								'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
 
-			$.ajax({
+		$.ajax({
 				url: jambaseQueryURL,
 				method: "GET"
 			}) .done (function(snap){
-				console.log(snap);
-				artistName = snap.Events[0].Artists[0].Name;
-				venueName = snap.Events[0].Venue.Name;
-				venueAddress = snap.Events[0].Venue.Address;
-				eventDate = snap.Events[0].Date;
-				eventDate = eventDate.slice(0,10);
+				eventArray = snap.Events;
+				console.log(eventArray);
+				for (var i=0; i<eventArray.length; i++) {
+					artistName = eventArray[i].Artists.map(function(artist) {
+						return artist.Name;
+					}).join("<br>");
+					venueName = eventArray[i].Venue.Name;
+					venueAddress = eventArray[i].Venue.Address;
+					eventDate = eventArray[i].Date.slice(0,10);
 
-				console.log(
-					'artist name: '+artistName,
-					'venue name: '+venueName,
-					'venue address: '+venueAddress,
-					'event date: '+eventDate
-				);
+					var addRow = $("#concertTable");
 
-				$('#concertTable').append(
-					'</tr><tr><td>'+artistName+'</td>'+
-					'<td>'+venueName+'</td>'+
-					'<td>'+eventDate+'</td></tr>'
-					);
-			})				
-		});
+
+					var columnArtist = $("<td>" + artistName + "</td>");
+					columnArtist.attr("class", "table-data");
+					columnArtist.attr("value", i);
+					var columnVenue = $("<td>" + venueName + "</td>");
+					columnVenue.attr("class", "table-data");
+					columnVenue.attr("value", i);
+					var columnDate = $("<td>" + eventDate + "</td>");
+					columnDate.attr("class", "table-data");
+					columnDate.attr("value", i);
+					var columnSaveData = $("<td>");
+					var columnSaveButton = $("<button>SAVE</button>");
+					columnSaveButton.attr("class", "btn btn-default save-button");
+					columnSaveButton.attr("value", i);
+					columnSaveData.append(columnSaveButton);
+
+					
+
+					var newRow = $("<tr class= \"concert-row\">");
+					newRow.append(columnArtist);
+					newRow.append(columnVenue);
+					newRow.append(columnDate);
+					newRow.append(columnSaveData);
+					addRow.append(newRow);
+
+
+
+				}
+			});
+
+
+////////////////END OF SECTION///////////////////
+
+
+
+
+		
 	    //ajax call to get information from Weather Underground
 		$.ajax({
-        	url: "http://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
+        	url: "https://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
           	state + "/" + city + ".json",
         	method: "GET"
       	})
@@ -145,7 +262,7 @@ $(document).on('ready', function (){
 	      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
 	      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
 	      		var iconImg = response.forecast.simpleforecast.forecastday[i].icon_url;
-	      		var month = response.forecast.simpleforecast.forecastday[i].date.monthname;
+	      		var month = response.forecast.simpleforecast.forecastday[i].date.month;
 	      		var day = response.forecast.simpleforecast.forecastday[i].date.day;
 	      		var year = response.forecast.simpleforecast.forecastday[i].date.year;
 	      		forecastArray.push({
@@ -157,7 +274,58 @@ $(document).on('ready', function (){
 	      			year: year
 	      		})
       		}
+
       		console.log(forecastArray);
+      		$("#weatherDate").html(forecastArray[forecastIndex].month + "/" + forecastArray[forecastIndex].day);
+      		$("#highTemp").html(forecastArray[forecastIndex].highTemp + String.fromCharCode(176) + "F");
+      		$("#lowTemp").html(forecastArray[forecastIndex].lowTemp + String.fromCharCode(176) + "F");
+      		var image = $("<img>");
+      		image.attr("src", forecastArray[forecastIndex].iconImg);
+      		var addImage = $("#weatherImg").append(image);
+      		
+      		
+      		$("#leftArrow").on("click", function(){
+      			if (forecastIndex == 0) {}
+      				else {
+      					forecastIndex --;
+      					updateWeatherInfo();
+      				}
+      		});
+
+      		$("#rightArrow").on("click", function(){
+      			if (forecastIndex == 9) {}
+      				else {
+      					forecastIndex ++;
+      					updateWeatherInfo();
+      				}
+      		});
+
+
+      		function updateWeatherInfo() {
+		      	$("#weatherDate").empty();
+				$("#highTemp").empty();
+				$("#lowTemp").empty();
+				$("#weatherImg").empty();
+				$("#weatherDate").html(forecastArray[forecastIndex].month + "/" + forecastArray[forecastIndex].day);
+				$("#highTemp").html(forecastArray[forecastIndex].highTemp + String.fromCharCode(176) + "F");
+				$("#lowTemp").html(forecastArray[forecastIndex].lowTemp + String.fromCharCode(176) + "F");
+				image.attr("src", forecastArray[forecastIndex].iconImg);
+				addImage = $("#weatherImg").append(image);
+      		}
+
 		});
-	})
-})	
+	});
+
+
+
+
+			$(document).on("click", ".table-data", function(){
+				console.log(this);
+				
+				var thisValue = $(this).attr("value");
+				console.log(thisValue);
+
+
+			});
+
+});	
