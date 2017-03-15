@@ -55,18 +55,18 @@ $(document).on('ready', function (){
 	var config = {
 
 		// Anita's Firebase
-		apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
-    	authDomain: "anitaproject1.firebaseapp.com",
-    	databaseURL: "https://anitaproject1.firebaseio.com",
-    	storageBucket: "anitaproject1.appspot.com",
-    	messagingSenderId: "163725238244"
+		// apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
+  //   	authDomain: "anitaproject1.firebaseapp.com",
+  //   	databaseURL: "https://anitaproject1.firebaseio.com",
+  //   	storageBucket: "anitaproject1.appspot.com",
+  //   	messagingSenderId: "163725238244"
 
     	//Zach's Firebase
-        // apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
-        // authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
-        // databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
-        // storageBucket: "groupprojectcodi-1488653714316.appspot.com",
-        // messagingSenderId: "681410190421"
+        apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
+        authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
+        databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
+        storageBucket: "groupprojectcodi-1488653714316.appspot.com",
+        messagingSenderId: "681410190421"
     };
 
     firebase.initializeApp(config);
@@ -337,6 +337,7 @@ $(document).on('ready', function (){
 
 
 
+
 				$(document).on("click", ".save-button", function(){
 					rowSelected = $(this).attr("value");
 					var saveArtistName = eventArray[rowSelected].Artists.map(function(artist) {
@@ -353,6 +354,15 @@ $(document).on('ready', function (){
     				
 
 				});
+
+
+	firebase.database().ref().on('child_added', function(snap){
+		$("#savedConcertTable").append(
+			'<tr><td>'+snap.val().artistName+'</td>'+
+			'<td>'+snap.val().venueName+'</td>'+
+			'<td>'+snap.val().eventDate+'</td></tr>'
+		);		
+	})
 
 
 });	
