@@ -15,6 +15,18 @@ var latitude = "";
 var longitude = "";
       
 $(document).on('ready', function (){
+
+///////  LAUNCH MY SAVED CONCERTS WINDOW //////////
+	$("#seeSaved").on("click", function(){
+		$("#pop").css("display", "block");
+	});//end of event for see my concerts
+
+
+	$("#theX").on("click", function(){
+		$("#pop").css("display", "none");
+	});//End of popwindow closer
+
+
     // Initialize variables for google API
     var city = "";
     var state = "";

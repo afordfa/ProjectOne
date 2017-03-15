@@ -113,8 +113,33 @@ th {
 	padding: 0px 0px 0px 0px;
 }
 
-#tableContainer {
+.tableContainerC {
 	height: 300px;
 	overflow: auto;
 }
+
+.popwin {
+	display:none;
+	position:absolute;
+	z-index:5;
+	left:5px;
+	top:63px;
+	/*width:auto;*/
+	/*height: 100%;*/
+	margin: auto;
+	overflow: auto; 
+}
+
+.windowContent {
+	background-color: white;
+
+}
+
+.close{
+	color: green;
+	float: right;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 
