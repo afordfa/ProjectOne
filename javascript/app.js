@@ -88,6 +88,7 @@ $(document).on('ready', function (){
 	
 	////////// starting click handler for submit button.   //////////////////
 	$('#search').on('click', function(){
+		clearOldData();
 		city = $("#cityInput").val();
 		state = $("#stateInput").val();
 		console.log(city);
@@ -322,6 +323,8 @@ $(document).on('ready', function (){
       		});
 
 
+
+
       		function updateWeatherInfo() {
 		      	$("#weatherDate").empty();
 				$("#highTemp").empty();
@@ -370,6 +373,14 @@ $(document).on('ready', function (){
 			'<td>'+snap.val().eventDate+'</td></tr>'
 		);		
 	})
+
+	function clearOldData() {
+		$("#concertTable").empty();
+		$("#weatherDate").empty();
+		$("#highTemp").empty();
+		$("#lowTemp").empty();
+		$("#weatherImg").empty();
+	};
 
 
 });	
