@@ -55,18 +55,18 @@ $(document).on('ready', function (){
 	var config = {
 
 		// Anita's Firebase
-		// apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
-  //   	authDomain: "anitaproject1.firebaseapp.com",
-  //   	databaseURL: "https://anitaproject1.firebaseio.com",
-  //   	storageBucket: "anitaproject1.appspot.com",
-  //   	messagingSenderId: "163725238244"
+		apiKey: "AIzaSyDOIoquUe1iXuYzqu6VvpOBbHVJbCUhK1Y",
+    	authDomain: "anitaproject1.firebaseapp.com",
+    	databaseURL: "https://anitaproject1.firebaseio.com",
+    	storageBucket: "anitaproject1.appspot.com",
+    	messagingSenderId: "163725238244"
 
     	//Zach's Firebase
-        apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
-        authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
-        databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
-        storageBucket: "groupprojectcodi-1488653714316.appspot.com",
-        messagingSenderId: "681410190421"
+        // apiKey: "AIzaSyBjAys6Wyrn9H6zcbpxIdDRvNfKEqTZtCs",
+        // authDomain: "groupprojectcodi-1488653714316.firebaseapp.com",
+        // databaseURL: "https://groupprojectcodi-1488653714316.firebaseio.com",
+        // storageBucket: "groupprojectcodi-1488653714316.appspot.com",
+        // messagingSenderId: "681410190421"
     };
 
     firebase.initializeApp(config);
@@ -100,17 +100,21 @@ $(document).on('ready', function (){
 	      })
 	   
 		.done(function(response) {
-			console.log("get latlong: ");
-			console.log(response);
-			latitude = response.results[0].geometry.location.lat;
-			longitude = response.results[0].geometry.location.lng;
-			console.log(latitude);
-			console.log(longitude);
+			if (response.status === "ZERO_RESULTS") {
+				alert("enter a valid city")
+			} else {
+				console.log(response.status);
+				console.log("get latlong: ");
+				console.log(response);
+				latitude = response.results[0].geometry.location.lat;
+				longitude = response.results[0].geometry.location.lng;
+				console.log(latitude);
+				console.log(longitude);
 
-			//this adds the script tag for the map
-			script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
-			$("body").append(script);
-
+				//this adds the script tag for the map
+				script = $('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcg7dc9u-CVCPWxCPVW-3SsVeSL9caXcI&callback=initMap" type="text/javascript"></script>');	
+				$("body").append(script);
+			}
 		});
 
 	zipCode = 78701;
@@ -185,10 +189,12 @@ $(document).on('ready', function (){
 					console.log("new latitude: " + latitude);
 					console.log("new longitude: " + longitude);
 					
-
-					var new_marker_position = new google.maps.LatLng(latitude, longitude);
-
+					if (latitude != 0) {
+						var new_marker_position = new google.maps.LatLng(latitude, longitude);
 						marker.setPosition(new_marker_position);
+						map.panTo(marker.getPosition(new_marker_position));
+						map.setZoom(15)
+					}
 				});
 
 			});
@@ -345,6 +351,7 @@ $(document).on('ready', function (){
 					}).join("<br>");
 					var saveVenueName = eventArray[rowSelected].Venue.Name;
 					var saveEventDate = eventArray[rowSelected].Date.slice(0,10);
+					saveEventDate = moment(saveEventDate).format('dddd MMM Do');
 					firebase.database().ref().push({
         			artistName: saveArtistName,
         			venueName: saveVenueName,
