@@ -5,8 +5,31 @@
 	color: #7600B2;
 	font-size: 18px;
 	display: none;
-	/*display: block;*/
 }
+
+.tagHeader {
+	margin:20px;
+	font-size: 36px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: bold
+}
+
+.tagLineRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.tagLines {
+	margin:7px;
+	font-size: 18px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: bold
+	padding: 5px;
+	flex-shrink: 1;
+}
+
+
 
 body{
 	/*width: 1024px;*/
@@ -133,7 +156,7 @@ body{
 #buttonBox {
 	margin-top:30px;
 	margin-bottom: 30px;
-	text-align: right;
+	text-align: center;
 }
 
 #seeSaved {

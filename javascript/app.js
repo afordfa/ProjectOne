@@ -108,9 +108,6 @@ $(document).on('ready', function (){
 			}
 			else {
 				$(".errorMessages").css("display", "none");
-				console.log(response.status);
-				console.log("get latlong: ");
-				console.log(response);
 
 				latitude = response.results[0].geometry.location.lat;
 				longitude = response.results[0].geometry.location.lng;
