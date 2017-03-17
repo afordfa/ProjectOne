@@ -26,6 +26,8 @@ $(document).on('ready', function (){
 ///////  LAUNCH MY SAVED CONCERTS WINDOW //////////
 	$("#seeSaved").on("click", function(){
 		$("#pop").css("display", "block");
+		$('#mapRow').removeClass('hide');
+
 	});//end of event for see my concerts
 
 
@@ -123,7 +125,7 @@ $(document).on('ready', function (){
 		// zipCode = 78701;
 
 		//Ajax call to use latitude and longitude to get zip code
-		
+		$('#mapRow').removeClass('hide');
 		//got an extra API key for zipwise. Change which row is commented to switch between them.
 		
 		// queryZipURL = "https://www.zipwise.com/webservices/citysearch.php?key=qkgfv1x9ijil1ftw&format=json&string=" 
@@ -134,72 +136,75 @@ $(document).on('ready', function (){
 			method: "GET"
 		}).done(function(response) {
 			//THIS NEEDS TO GO BACK IN THE FINAL VERSION!!!
-			zipCode = response.results[0].zip;
+			if(response && response.results[0] && response.results[0].zip) {
+				zipCode = response.results[0].zip;
 			// zipCode = 78701;
-			jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
-									'&radius=10&startDate='+startDate+
-									'%3A00%3A00&endDate='+endDate+
-									// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
-									//extra api key
-									'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
-			$.ajax({
-					url: jambaseQueryURL,
-					method: "GET"
-			}).done (function(snap){
-				eventArray = snap.Events;
-				for (var i=0; i<eventArray.length; i++) {
-					artistName = eventArray[i].Artists.map(function(artist) {
-						return artist.Name;
-					}).join("<br>");
-					venueName = eventArray[i].Venue.Name;
-					venueAddress = eventArray[i].Venue.Address;
-					eventDate = eventArray[i].Date.slice(0,10);
-					eventDate = moment(eventDate).format('dddd MMM Do');
+				jambaseQueryURL = 'http://api.jambase.com/events?zipCode='+zipCode+
+										'&radius=10&startDate='+startDate+
+										'%3A00%3A00&endDate='+endDate+
+										// '%3A00%3A00&page=0&api_key=8fyq9sabmukrkq5fa8grq6qd';
+										//extra api key
+										'%3A00%3A00&page=0&api_key=tce5wmzuk9w333ns7nv4xsv9';
+				$.ajax({
+						url: jambaseQueryURL,
+						method: "GET"
+				}).done (function(snap){
+					eventArray = snap.Events;
+					for (var i=0; i<eventArray.length; i++) {
+						artistName = eventArray[i].Artists.map(function(artist) {
+							return artist.Name;
+						}).join("<br>");
+						venueName = eventArray[i].Venue.Name;
+						venueAddress = eventArray[i].Venue.Address;
+						eventDate = eventArray[i].Date.slice(0,10);
+						eventDate = moment(eventDate).format('dddd MMM Do');
 
-					var addRow = $("#concertTable");
+						var addRow = $("#concertTable");
 
-					var columnArtist = $("<td>" + artistName + "</td>");
-					columnArtist.attr("class", "table-data");
-					columnArtist.attr("value", i);
+						var columnArtist = $("<td>" + artistName + "</td>");
+						columnArtist.attr("class", "table-data");
+						columnArtist.attr("value", i);
 
-					var columnVenue = $("<td>" + venueName + "</td>");
-					columnVenue.attr("class", "table-data");
-					columnVenue.attr("value", i);
+						var columnVenue = $("<td>" + venueName + "</td>");
+						columnVenue.attr("class", "table-data");
+						columnVenue.attr("value", i);
 
-					var columnDate = $("<td>" + eventDate + "</td>");
-					columnDate.attr("class", "table-data");
-					columnDate.attr("value", i);
+						var columnDate = $("<td>" + eventDate + "</td>");
+						columnDate.attr("class", "table-data");
+						columnDate.attr("value", i);
 
-					var columnSaveData = $("<td>");
+						var columnSaveData = $("<td>");
 
-					var columnSaveButton = $("<button>SAVE</button>");
-					columnSaveButton.attr("class", "btn btn-default save-button");
-					columnSaveButton.attr("type", "button");
-					columnSaveButton.attr("value", i);
-					columnSaveData.append(columnSaveButton);
+						var columnSaveButton = $("<button>SAVE</button>");
+						columnSaveButton.attr("class", "btn btn-default save-button");
+						columnSaveButton.attr("type", "button");
+						columnSaveButton.attr("value", i);
+						columnSaveData.append(columnSaveButton);
 
-					var newRow = $("<tr class= \"concert-row\">");
-					newRow.append(columnArtist);
-					newRow.append(columnVenue);
-					newRow.append(columnDate);
-					newRow.append(columnSaveData);
-					addRow.append(newRow);
-				}
-
-				$(document).on("click", ".table-data", function(){
-					var thisValue = $(this).attr("value");
-					latitude = eventArray[thisValue].Venue.Latitude;
-					longitude = eventArray[thisValue].Venue.Longitude;
-					
-					if (latitude != 0) {
-						var new_marker_position = new google.maps.LatLng(latitude, longitude);
-						marker.setPosition(new_marker_position);
-						map.panTo(marker.getPosition(new_marker_position));
-						map.setZoom(15)
+						var newRow = $("<tr class= \"concert-row\">");
+						newRow.append(columnArtist);
+						newRow.append(columnVenue);
+						newRow.append(columnDate);
+						newRow.append(columnSaveData);
+						addRow.append(newRow);
 					}
-				});
 
-			});
+					$(document).on("click", ".table-data", function(){
+						var thisValue = $(this).attr("value");
+						latitude = eventArray[thisValue].Venue.Latitude;
+						longitude = eventArray[thisValue].Venue.Longitude;
+						
+						if (latitude != 0) {
+							var new_marker_position = new google.maps.LatLng(latitude, longitude);
+							marker.setPosition(new_marker_position);
+							map.panTo(marker.getPosition(new_marker_position));
+							map.setZoom(15)
+						}
+					});
+
+				});
+			}
+			
 		})
 
 	    //ajax call to get information from Weather Underground
