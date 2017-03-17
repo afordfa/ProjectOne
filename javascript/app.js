@@ -33,7 +33,6 @@ $(document).on('ready', function (){
 		$("#pop").css("display", "none");
 	});//End of popwindow closer
 
-
     // Initialize variables for google API
     var city = "";
     var state = "";
@@ -72,7 +71,6 @@ $(document).on('ready', function (){
 
 	$("#startDateInput").datepicker();
 
-
 	$("#endDateInput").datepicker();
 
 	$("#startDateInput").change(function(){
@@ -88,14 +86,11 @@ $(document).on('ready', function (){
 		clearOldData();
 		city = $("#cityInput").val();
 		state = $("#stateInput").val();
-		
 	    // First ajax call to get latitude and longitude from google
 		$.ajax({
 	        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "+" + state + "&sensor=true",
 	        method: "GET"
-	      })
-	   
-		.done(function(response) {
+	      }).done(function(response) {
 			if (response.status === "ZERO_RESULTS") {
 				alert("enter a valid city")
 			} else {
@@ -108,8 +103,8 @@ $(document).on('ready', function (){
 				$("body").append(script);
 			}
 		});
+		// zipCode = 78701;
 
-	// zipCode = 78701;
 		//Ajax call to use latitude and longitude to get zip code
 		
 		//got an extra API key for zipwise. Change which row is commented to switch between them.
@@ -133,7 +128,7 @@ $(document).on('ready', function (){
 			$.ajax({
 					url: jambaseQueryURL,
 					method: "GET"
-			}) .done (function(snap){
+			}).done (function(snap){
 				eventArray = snap.Events;
 				for (var i=0; i<eventArray.length; i++) {
 					artistName = eventArray[i].Artists.map(function(artist) {
@@ -194,11 +189,7 @@ $(document).on('ready', function (){
         	url: "https://api.wunderground.com/api/0b14145e9f9901bc/forecast10day/q/" +
           	state + "/" + city + ".json",
         	method: "GET"
-      	})
-      	//when call is complete, sets variables for weather based on the city and state entered.
-      	//uses 10-day forecast from weather underground.
-      	//need to attribute weatherunderground in app.
-      	.done(function(response) {
+      	}).done(function(response) {
       		for (i = 0; i < 10; i++) {
 	      		var highTemp = response.forecast.simpleforecast.forecastday[i].high.fahrenheit;
 	      		var lowTemp = response.forecast.simpleforecast.forecastday[i].low.fahrenheit;
