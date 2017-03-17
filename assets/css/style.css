@@ -96,6 +96,7 @@ body{
 	width: 500px;
 	height: 400px;
 	margin:auto;
+	margin-bottom: 30px;
 }
 
 #wheatherLabelRow {
@@ -114,11 +115,11 @@ body{
 #buttonBox {
 	margin-top:30px;
 	margin-bottom: 30px;
-	text-align: right;
+	text-align: center;
 }
 
 #seeSaved {
-	margin: 5px;
+	margin: auto;
 }
 
 #concertHeading{
