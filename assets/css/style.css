@@ -1,3 +1,4 @@
+
 .errorMessages {
 	text-align: left;
 	float: left;
@@ -29,8 +30,6 @@
 	flex-shrink: 1;
 }
 
-
-
 body{
 	/*width: 1024px;*/
 	/*margin: auto;*/
@@ -52,17 +51,8 @@ body{
     margin-top: 10px;
     font-size: 19px;
 }
-.h3, h3 {
-    font-size: 24px;
-    margin-top: 12px;
-}
-
 .container{
 	background-image: url("guitar1.png");
-}
-
-#row1{
-	margin-top:-19px;
 }
 
 #header1{
@@ -75,11 +65,8 @@ body{
   	text-align: center;
 }
 
-#logo {
-	color:white;
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 70px;
-	padding-top: 100px;
+#row1{
+	margin-top:-19px;
 }
 
 #row2{
@@ -94,15 +81,10 @@ body{
 	padding-top: 100px;
 	margin-top: -10px;
 }
-#row3{
-	margin: 0px 0px 0px 15px;
-}
 
-#searchPannel {
-	background-color:#ff8900;
-	border-bottom-left-radius: 50% 10%;
-  	border-bottom-right-radius: 50% 10%;
-  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+#arrows {
+	color:white;
 }
 
 .miniHeaderLabel {
@@ -113,17 +95,25 @@ body{
 }
 
 
-#arrows {
-	color:white;
+.attribution {
+	color: white;
+}
+
+
+#searchPannel {
+	background-color:#ff8900;
+	border-bottom-left-radius: 50% 10%;
+  	border-bottom-right-radius: 50% 10%;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .btn{
 	text-align: right;
 }
 
-
-.attribution {
-	color: white;
+.h3, h3 {
+    font-size: 24px;
+    margin-top: 12px;
 }
 
 .startBtn{
@@ -138,6 +128,7 @@ body{
 	width: 500px;
 	height: 400px;
 	margin:auto;
+	margin-bottom: 30px;
 }
 
 #wheatherLabelRow {
@@ -160,15 +151,7 @@ body{
 }
 
 #seeSaved {
-	margin: 5px;
-}
-
-#search {
-	margin: 5px;
-}
-
-.save-button {
-	margin: 5px;
+	margin: auto;
 }
 
 #concertHeading{
@@ -192,8 +175,8 @@ th {
 }
 
 .tableContainerC {
-	height: 330px;
-	overflow: scroll;
+	height: 300px;
+	overflow: auto;
 }
 
 .popwin {
@@ -202,19 +185,15 @@ th {
 	z-index:5;
 	left:5px;
 	top:63px;
-	width:100%;
-	height: auto;
+	/*width:auto;*/
+	/*height: 100%;*/
 	margin: auto;
-	overflow: scroll; 
+	overflow: auto; 
 }
 
 .windowContent {
 	background-color: white;
 
-}
-
-#theX {
-	color: green;
 }
 
 .close{
