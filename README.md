@@ -1,7 +1,7 @@
 # *OOblee*
 
 
-[OOblee](http://stark-reef-29253.herokuapp.com/)
+[View OOblee App](http://stark-reef-29253.herokuapp.com/)
 
 ## Problem
 Travel can be complicated. Combining travel and music/concerts involves a lot of extra planning.
