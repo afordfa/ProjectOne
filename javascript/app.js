@@ -89,6 +89,13 @@ $(document).on('ready', function (){
 	////////// starting click handler for submit button.   //////////////////
 	$('#search').on('click', function(){
 		clearOldData();
+		var addHeaderRow = $("#concertTable");
+		var headerRow = $("<tr>");
+		headerRow.append("<th>Artist</th>");
+		headerRow.append("<th>Venue</th>");
+		headerRow.append("<th>Date</th>");
+		headerRow.append("<th>Save</th>");
+		addHeaderRow.append(headerRow);
 		city = $("#cityInput").val();
 		state = $("#stateInput").val();
 		console.log(city);
@@ -102,8 +109,14 @@ $(document).on('ready', function (){
 	   
 		.done(function(response) {
 			if (response.status === "ZERO_RESULTS") {
-				alert("enter a valid city")
-			} else {
+				$(".errorMessages").html("City/State are invalid");
+				$(".errorMessages").css("display", "block")
+			} else if (startDate > endDate) {
+				$(".errorMessages").html("End date must be after start date");
+				$(".errorMessages").css("display", "block")
+			}
+			else {
+				$(".errorMessages").css("display", "none");
 				console.log(response.status);
 				console.log("get latlong: ");
 				console.log(response);
@@ -169,6 +182,7 @@ $(document).on('ready', function (){
 					var columnSaveData = $("<td>");
 					var columnSaveButton = $("<button>SAVE</button>");
 					columnSaveButton.attr("class", "btn btn-default save-button");
+					columnSaveButton.attr("type", "button");
 					columnSaveButton.attr("value", i);
 					columnSaveData.append(columnSaveButton);
 

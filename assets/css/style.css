@@ -1,3 +1,13 @@
+.errorMessages {
+	text-align: left;
+	float: left;
+	margin: 5px;
+	color: #7600B2;
+	font-size: 18px;
+	display: none;
+	/*display: block;*/
+}
+
 body{
 	/*width: 1024px;*/
 	/*margin: auto;*/
@@ -104,6 +114,14 @@ body{
 	margin: 5px;
 }
 
+#search {
+	margin: 5px;
+}
+
+.save-button {
+	margin: 5px;
+}
+
 #concertHeading{
 	background-color:#ff8900;
 }
@@ -135,8 +153,8 @@ th {
 	z-index:5;
 	left:5px;
 	top:63px;
-	/*width:auto;*/
-	/*height: 100%;*/
+	width:100%;
+	height: auto;
 	margin: auto;
 	overflow: auto; 
 }
@@ -144,6 +162,10 @@ th {
 .windowContent {
 	background-color: white;
 
+}
+
+#theX {
+	color: green;
 }
 
 .close{
